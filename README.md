@@ -71,7 +71,7 @@ void setup()
 }
 void loop()
 {
-  digitalWrite(ledPin, LOW);
+  digitalWrite(ledPin, LOW); // Notice all we did was change the output mode to LOW
 }
 ```
 We now have the ability to turn our LED on and off whenever we want, but what if we need it to blink?
@@ -94,7 +94,7 @@ void loop()
   delay(1000);
 }
 ```
-Great! We can now switch the light on and off using a timer, but what if we want to do it using something else - say, a button.
+Great! We can now switch the light on and off using a timer, but what if we want to do it using something else - say a button.
 
 ### Input Modules
 Now that we have the basics down for how to output to a module, it's time to move on to getting input from the environment.
@@ -109,7 +109,7 @@ const int ledPin = 13;
 int buttonState = 0;
 
 void setup() {
-  // Notice the only difference being type OUTPUT or INPUT and pin number
+  // The only setup difference being type OUTPUT or INPUT and pin number
   pinMode(ledPin, OUTPUT);
   pinMode(buttonPin, INPUT);
 }
@@ -133,7 +133,7 @@ void setup() {
 }
 
 void loop() {
-  // Changes the buttonState when we press it. digitalRead() takes in this input and outputs either 1 or 0
+  // Changes the buttonState when we press it. digitalRead() takes in the button pin as input and outputs either 1 or 0
   buttonState = digitalRead(buttonPin);
   
   /* HIGH or LOW for buttonState is the same as it was for our LED
@@ -148,17 +148,23 @@ void loop() {
 ```
 Congratulations, you have now set up a working module with inputs and everything! Let's apply some of this knowledge to something we can use.
 ### Game Buzzer
+The following code will allow us to set up a buzzer system like those seen in game shows. We have two contestants, each with their own button, and we want to know who pressed it first. Here's the setup:
 ```
+// Setup 2 LEDs and 2 Buttons for input and output
 const int buttonPin1 = 2;
 const int buttonPin2 = 3;
 const int ledPin1 =  12;
 const int ledPin2 = 13;
 
+// Stores the state of each button and ButtonPressed will store which button was pressed, 1 or 2 (0 for none)
 int buttonState1 = 0;
 int buttonState2 = 0;
-int whichButtonPressed = 0;
+int buttonPressed = 0;
 
 void setup() {
+    /* We configure our input and outputs as normal and set ledPin1 and ledPin2 to off. 
+       When we begin a new round, we don't want a buzz in before starting! */
+       
     pinMode(ledPin1, OUTPUT);
     pinMode(ledPin2, OUTPUT);
     pinMode(buttonPin1, INPUT);
@@ -171,16 +177,17 @@ void setup() {
 void loop() {
     buttonState1 = digitalRead(buttonPin1);
     buttonState2 = digitalRead(buttonPin2);
-
+    
+    // If neither 
     while(buttonState1 == LOW && buttonState2 == LOW) {
         if (buttonState1 == HIGH) {
-            whichButtonPressed = 1;
+            buttonPressed = 1;
         } else if (buttonState2 == HIGH) {
-            whichButtonPressed = 2;
+            buttonPressed = 2;
         }
     }
     while (true) {
-        if (whichButtonPressed == 1) {
+        if (buttonPressed == 1) {
             digitalWrite(ledPin1, HIGH);
         } else {
             digitalWrite(ledPin2, HIGH);
@@ -188,3 +195,5 @@ void loop() {
     }
 }
 ```
+### Other Uses for Arduino
+// 3D Printer, light synth, etc.
