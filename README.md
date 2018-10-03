@@ -133,7 +133,9 @@ void setup() {
 }
 
 void loop() {
-  // Changes the buttonState when we press it. digitalRead() takes in the button pin as input and outputs either 1 or 0
+  /* Changes the buttonState when we press it
+     digitalRead() takes in the button pin as input and outputs either 1 or 0 */
+     
   buttonState = digitalRead(buttonPin);
   
   /* HIGH or LOW for buttonState is the same as it was for our LED
@@ -146,6 +148,9 @@ void loop() {
   }
 }
 ```
+
+<img src="https://cdn.instructables.com/FKR/XEB3/IADH24QW/FKRXEB3IADH24QW.LARGE.jpg?auto=webp&width=600&crop=3:2" alt="Button1" width="350" /> <img src="https://4c3q4z2euxqn29mk0e34ayce-wpengine.netdna-ssl.com/wp-content/uploads/2014/01/13-Debounce-Resized.jpg" alt="Button2" width="350" />
+
 Congratulations, you have now set up a working module with inputs and everything! Let's apply some of this knowledge to something we can use.
 ### Game Buzzer
 The following code will allow us to set up a buzzer system like those seen in game shows. We have two contestants, each with their own button, and we want to know who pressed it first. Here's the setup:
@@ -156,7 +161,7 @@ const int buttonPin2 = 3;
 const int ledPin1 =  12;
 const int ledPin2 = 13;
 
-// Stores the state of each button and ButtonPressed will store which button was pressed, 1 or 2 (0 for none)
+// Stores the state of each button and buttonPressed stores which button was pressed, 1 or 2 (0 for none)
 int buttonState1 = 0;
 int buttonState2 = 0;
 int buttonPressed = 0;
@@ -175,25 +180,36 @@ void setup() {
 }
 
 void loop() {
-    buttonState1 = digitalRead(buttonPin1);
-    buttonState2 = digitalRead(buttonPin2);
+    // If we haven't pressed a button, keep checking
+    if (buttonPressed == 0) {
+        buttonState1 = digitalRead(buttonPin1);
+        buttonState2 = digitalRead(buttonPin2);
+    }
     
-    // If neither 
-    while(buttonState1 == LOW && buttonState2 == LOW) {
+    /* If we haven't pressed a button before, we will check if we just did
+       Otherwise we can continue the loop */
+       
+    if (!buttonPressed) {
         if (buttonState1 == HIGH) {
             buttonPressed = 1;
         } else if (buttonState2 == HIGH) {
             buttonPressed = 2;
         }
     }
-    while (true) {
-        if (buttonPressed == 1) {
-            digitalWrite(ledPin1, HIGH);
-        } else {
-            digitalWrite(ledPin2, HIGH);
-        }
+    // Now we light up the LED from whichever button we pressed
+    if (buttonPressed == 1) {
+        digitalWrite(ledPin1, HIGH);
+    } else if (buttonPressed == 2) {
+        digitalWrite(ledPin2, HIGH);
     }
 }
 ```
 ### Other Uses for Arduino
-// 3D Printer, light synth, etc.
+#### Wall-E Robot
+<img src="https://www.bonjourlife.com/wp-content/uploads/2014/01/Arduino-Wall-E-Robot-With-Voice-Commands-6.jpg" alt="Wall-E" width="750" />
+
+#### Arduino Flappy Bird
+<img src="https://howtomechatronics.com/wp-content/uploads/2015/12/Arduino-TFT-LCD-Touch-Sceen-Tutorial-Example-03.jpg?x57244" alt="Flappy Bird Arduino" width="750" />
+
+#### Light Cube
+<img src="https://images-na.ssl-images-amazon.com/images/I/81w47oHSviL._SX425_.jpg" alt= "Light Cube" width="750" />
