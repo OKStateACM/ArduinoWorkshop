@@ -31,7 +31,7 @@ Our Arduino program has two main functions:
   * loop() - Main loop which continuously executes our code
   
 ### Hello World!
-Our first project will involve us taking an LED we have plugged into our board and turning it on. To achieve this, we use the code below:
+Our first project will involve us plugging an LED into our board and turning it on. To achieve this, we use the code below:
 ```
 const int ledPin = 13;
 
@@ -44,7 +44,7 @@ void loop()
   digitalWrite(ledPin, HIGH);
 }
 ```
-In the first line, all we are doing is creating a variable named *ledPin* and assigning it to pin 13 on our Arduino Board.
+In the first line, we create a variable named *ledPin* and assign it to pin 13 on our Arduino Board.
 
 * pinMode tells the compiler what type of module we are using and takes 2 parameters:
   * ledPin (The pin we are writing to)
@@ -57,6 +57,10 @@ In the first line, all we are doing is creating a variable named *ledPin* and as
 Before we compile and run our code, we still need to hardwire the arduino board itself.
 
 <img src="https://www.arduino.cc/en/uploads/Tutorial/ExampleCircuit_bb.png" alt="Blink Setup" width="250" /><img src="https://www.arduino.cc/en/uploads/Tutorial/ExampleCircuit_sch.png" alt="Blink Setup Diagram" width="250"/>
+
+To do so, we connect the negative leg of the LED (The shorter leg) to a ground pin on the board. We then connect the other positive (longer) leg to row 10 on our board. Now we can connect our 220 Ohm resistor to the circuit. Take the end with the darker brown stripe and connect it to another slot in row 10. Now, connect the other end of the resistor to row 13.
+
+We can now connect our breadboard to the Arduino by connecting a wire from the breadboard's ground to the Arduino's ground and from our breadboard's row 13 to the Arduino's slot 13.
 
 Now we can compile our code in the web editor and run it...
 
@@ -74,7 +78,7 @@ void loop()
   digitalWrite(ledPin, LOW); // Notice all we did was change the output mode to LOW
 }
 ```
-We now have the ability to turn our LED on and off whenever we want, but what if we need it to blink?
+We now have the ability to turn our LED on and off whenever we desire, but what if we want it to blink?
 
 `delay(1000)`
 
@@ -94,7 +98,7 @@ void loop()
   delay(1000);
 }
 ```
-Great! We can now switch the light on and off using a timer, but what if we want to do it using something else - say a button.
+Great! We can now switch the light on and off using a timer. Next we will explore how to expand upon this by giving our module an input - say a button.
 
 ### Input Modules
 Now that we have the basics down for how to output to a module, it's time to move on to getting input from the environment.
@@ -118,7 +122,7 @@ void loop() {
 
 }
 ```
-Seems familiar?
+Seem familiar?
 
 Next, we will need to set up our logic for when the button is pressed in our loop() function.
 ```
@@ -133,6 +137,7 @@ void setup() {
 }
 
 void loop() {
+
   /* Changes the buttonState when we press it
      digitalRead() takes in the button pin as input and outputs either 1 or 0 */
      
@@ -141,9 +146,13 @@ void loop() {
   /* HIGH or LOW for buttonState is the same as it was for our LED
      While the button is being pressesd, the light will remain on
      The LED will shut off once we release it */
-  if (buttonState == HIGH) {
+     
+  if (buttonState == HIGH)
+  {
     digitalWrite(ledPin, HIGH);
-  } else {
+  }
+  else 
+  {
     digitalWrite(ledPin, LOW);
   }
 }
@@ -181,7 +190,8 @@ void setup() {
 
 void loop() {
     // If we haven't pressed a button, keep checking
-    if (buttonPressed == 0) {
+    if (buttonPressed == 0)
+    {
         buttonState1 = digitalRead(buttonPin1);
         buttonState2 = digitalRead(buttonPin2);
     }
@@ -189,17 +199,24 @@ void loop() {
     /* If we haven't pressed a button before, we will check if we just did
        Otherwise we can continue the loop */
        
-    if (!buttonPressed) {
-        if (buttonState1 == HIGH) {
+    if (!buttonPressed)
+    {
+        if (buttonState1 == HIGH)
+        {
             buttonPressed = 1;
-        } else if (buttonState2 == HIGH) {
+        } 
+        else if (buttonState2 == HIGH)
+        {
             buttonPressed = 2;
         }
     }
     // Now we light up the LED from whichever button we pressed
-    if (buttonPressed == 1) {
+    if (buttonPressed == 1)
+    {
         digitalWrite(ledPin1, HIGH);
-    } else if (buttonPressed == 2) {
+    }
+    else if (buttonPressed == 2)
+    {
         digitalWrite(ledPin2, HIGH);
     }
 }
