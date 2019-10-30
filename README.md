@@ -13,7 +13,7 @@ The first step is to plug in your Arduino Board to your computer using the USB i
 First off, we will need to access the online editor [Here](https://create.arduino.cc/editor/) and create a new Arduino account.
 
 Once the editor is set up and ready to go, you should see something similar to this:
-```
+```cpp
 /*
 
 */
@@ -32,7 +32,7 @@ Our Arduino program has two main functions:
   
 ### Hello World!
 Our first project will involve us plugging an LED into our board and turning it on. To achieve this, we use the code below:
-```
+```cpp
 const int ledPin = 13;
 
 void setup()
@@ -66,7 +66,7 @@ Now we can compile our code in the web editor and run it...
 
 ### Goodbye World!
 We can also turn the LED off by changing our digitalWrite function:
-```
+```cpp
 const int ledPin = 13;
 
 void setup()
@@ -83,7 +83,7 @@ We now have the ability to turn our LED on and off whenever we desire, but what 
 `delay(1000)`
 
 This will cause our code to delay by 1000ms or 1 second. Plugging this into our code we have:
-```
+```cpp
 const int ledPin = 13;
 
 void setup()
@@ -104,7 +104,7 @@ Great! We can now switch the light on and off using a timer. Next we will explor
 Now that we have the basics down for how to output to a module, it's time to move on to getting input from the environment.
 
 Let's set up a button that will turn on our light when we press it.
-```
+```cpp
 // Assigning button and led pin values
 const int buttonPin = 2;
 const int ledPin = 13;
@@ -125,7 +125,7 @@ void loop() {
 Seem familiar?
 
 Next, we will need to set up our logic for when the button is pressed in our loop() function.
-```
+```cpp
 const int buttonPin = 2;
 const int ledPin =  13;
 
@@ -163,7 +163,7 @@ void loop() {
 Congratulations, you have now set up a working module with inputs and everything! Let's apply some of this knowledge to something we can use.
 ### Game Buzzer
 The following code will allow us to set up a buzzer system like those seen in game shows. We have two contestants, each with their own button, and we want to know who pressed it first. Here's the setup:
-```
+```cpp
 // Setup 2 LEDs and 2 Buttons for input and output
 const int buttonPin1 = 2;
 const int buttonPin2 = 3;
